@@ -1,5 +1,9 @@
 <ul>
     @foreach($Boards as $Board)
-        <li>{{ $Board['name'] }}</li>
+        <li>
+                <a href="/board/{{ $Board['id'] }}">
+                        {{ $Board['name'] }}
+                </a>
+        </li>
     @endforeach
 </ul>

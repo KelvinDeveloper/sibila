@@ -8,22 +8,29 @@ use Trello\Manager;
 class Trello
 {
     private $Client;
-    private $Manager;
-    private $Member;
+    public $Manager;
+    public $Member;
+    public $Board;
+    public $Card;
 
-    private $Login = 'kelvin.souza@tblmanager.com.br';
+    private $Setup;
 
     public function  __construct()
     {
+        $this->Setup = User::getSetup();
+
         $this->authenticate();
         $this->manager();
         $this->member();
+
+        $this->Board = $this->Client->api('board');
+        $this->Card = $this->Client->api('card');
     }
 
     private function authenticate()
     {
         $this->Client = new Client;
-        $this->Client->authenticate(env('TRELLO_API_KEY'), env('TRELLO_TOKEN'), Client::AUTH_URL_CLIENT_ID);
+        $this->Client->authenticate($this->Setup->api_key, $this->Setup->token, Client::AUTH_URL_CLIENT_ID);
     }
 
     private function manager()
@@ -43,7 +50,7 @@ class Trello
      * */
     public function getBoards()
     {
-        return $this->Member->boards()->all($this->Login);
+        return $this->Member->boards()->all($this->Setup->username);
     }
 
     /**
