@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableBoardConfigurations extends Migration
+class CreateTableTimeCards extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateTableBoardConfigurations extends Migration
      */
     public function up()
     {
-        Schema::create('board_configurations', function (Blueprint $table) {
+        Schema::create('time_cards', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('card_id');
+            $table->integer('difficulty');
+            $table->dateTime('init_doing');
+            $table->dateTime('end_doing');
+            $table->dateTime('total_doing');
             $table->string('board_id');
-            $table->string('list_doing_id');
 
             $table->timestamps();
         });
@@ -30,6 +34,6 @@ class CreateTableBoardConfigurations extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('board_configurations');
+        Schema::dropIfExists('time_cards');
     }
 }

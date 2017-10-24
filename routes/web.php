@@ -22,8 +22,12 @@ Route::get('/boards', 'TrelloController@index');
 
 Route::group(['middleware' => ['auth', 'setup']], function () {
 
+    /* Initial */
     Route::get('/home', 'HomeController@index');
-    Route::get('/board/{id}', 'HomeController@board');
+    Route::get('/board/{id}', 'BoardController@index');
+
+    /* Board setting */
+    Route::post('/board/{id}/settings/save', 'BoardController@save');
 });
 
 Route::group(['middleware' => 'auth'], function () {
