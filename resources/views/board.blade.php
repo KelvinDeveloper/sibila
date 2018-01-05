@@ -15,9 +15,21 @@
 
                             <select name="doing-list" class="form-control">
                                 <div class="col-md-6">
+                                    <option>Selecionar</option>
                                 @foreach($Lists as $List)
                                     <option id="doing-list" value="{{ $List['id'] }}" {{ $List['id'] == $Settings->list_doing_id ? 'selected': '' }}>{{ $List['name'] }}</option>
                                 @endforeach
+                                </div>
+                            </select> <br>
+
+                            <label for="doing-list">Automate card creation</label>
+
+                            <select name="automate-list" class="form-control">
+                                <div class="col-md-6">
+                                    <option>Selecionar</option>
+                                    @foreach($Lists as $List)
+                                        <option id="doing-list" value="{{ $List['id'] }}" {{ $List['id'] == $Settings->list_doing_id ? 'selected': '' }}>{{ $List['name'] }}</option>
+                                    @endforeach
                                 </div>
                             </select>
                         </div>
@@ -51,6 +63,13 @@
                     alert('Error saving record')
                 }
             })
+        });
+
+        $('select[name="automate-list"]').change(function () {
+
+            if ( $(this).val() == '' ) return false;
+
+            return window.location="/board/{{ $id }}/automate/" + $(this).val();
         });
     });
     </script>

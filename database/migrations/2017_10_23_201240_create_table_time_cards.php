@@ -18,9 +18,9 @@ class CreateTableTimeCards extends Migration
 
             $table->string('card_id');
             $table->integer('difficulty');
-            $table->dateTime('init_doing');
-            $table->dateTime('end_doing');
-            $table->dateTime('total_doing');
+            $table->dateTime('init_doing')->nullable();
+            $table->dateTime('end_doing')->nullable();
+            $table->integer('total_doing')->nullable();
             $table->string('board_id');
 
             $table->timestamps();

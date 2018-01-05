@@ -7,6 +7,9 @@ use App\Trello;
 
 class TrelloController extends Controller
 {
+    /**
+     * Show display index (all boards)
+     * */
     public function index(Trello $Trello)
     {
         $Boards = $Trello->getBoards();

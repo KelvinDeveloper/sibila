@@ -17,9 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/boards', 'TrelloController@index');
-
-
+/**
+ * Routes require setup Trello and login
+ *
+ * */
 Route::group(['middleware' => ['auth', 'setup']], function () {
 
     /* Initial */
@@ -28,8 +29,15 @@ Route::group(['middleware' => ['auth', 'setup']], function () {
 
     /* Board setting */
     Route::post('/board/{id}/settings/save', 'BoardController@save');
+
+    /* Cards automate creation */
+    Route::get('/board/{id}/automate/{id_list}', 'AutomateController@index');
 });
 
+/**
+ * Routes require login
+ *
+ * */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/setup', 'SetupController@index');
     Route::post('/setup', 'SetupController@save')->name('setup');

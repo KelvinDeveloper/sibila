@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class BoardController extends Controller
 {
+
+    /**
+     * Show display select board
+     *
+     * @param $Trello
+     * @param $id int
+     *
+     * @return view()
+     * */
     public function index(Trello $Trello, $id)
     {
         $Board    = $Trello->Manager->getBoard($id);
@@ -18,15 +27,17 @@ class BoardController extends Controller
             $Settings = new BoardConfiguration;
         }
 
-//        dd(
-//            $Trello->Board->cards()->all($id)[55],
-//            $Trello->Card->actions()->all('59e75caac5873fb475d06815')
-//        );
-
-
         return view('board', compact('id', 'Board', 'Lists', 'Settings'))->render();
     }
 
+    /**
+     * Save board settings
+     *
+     * @param $request
+     * @param $id int
+     *
+     * @return object
+     * */
     public function save(Request $request, $id)
     {
         $Board = BoardConfiguration::where('board_id', $id)->first();

@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+         $schedule->command('boot:start')
+             ->sendOutputTo('/Users/TBLManager/www/cron.log')
+                  ->hourly();
     }
 
     /**
