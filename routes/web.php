@@ -32,6 +32,9 @@ Route::group(['middleware' => ['auth', 'setup']], function () {
 
     /* Cards automate creation */
     Route::get('/board/{id}/automate/{id_list}', 'AutomateController@index');
+    Route::get('/board/{id}/automate/{id_list}/{id_automate}', 'AutomateController@form');
+    Route::post('/board/{id}/automate/{id_list}/{id_automate}/save', 'AutomateController@save');
+    Route::post('/board/{id}/automate/{id_list}/{id_automate}/delete', 'AutomateController@delete');
 });
 
 /**

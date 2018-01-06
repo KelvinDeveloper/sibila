@@ -8,6 +8,9 @@
                     <div class="panel-heading">Setup - <i>Trello</i></div>
 
                     <div class="panel-body">
+
+                        <a href="https://trello.com/app-key" target="_blank">Get API Key</a>
+
                         <form class="form-horizontal" method="POST" action="{{ route('setup') }}">
                             {{ csrf_field() }}
 
