@@ -19,6 +19,8 @@ class BoardAutomates extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('frequency');
+            $table->integer('day_weekly')->nullable();
+            $table->integer('day_monthly')->nullable();
             $table->string('board_id');
             $table->string('list_id');
             $table->string('user_id');
