@@ -34,6 +34,8 @@ class AutomateController extends Controller
         $Board     = $Trello->Manager->getBoard($id_board);
         $Lists     = $Trello->Board->lists()->all($id_board);
         $Automate  = BoardAutomate::find($id_automate);
+        $Labels    = $Trello->Board->labels()->all($id_board);
+        $Members   = $Trello->Board->members()->all($id_board);
 
         if (! $Automate) $Automate = new BoardAutomate;
 
@@ -48,7 +50,7 @@ class AutomateController extends Controller
             }
         }
 
-        return view('automate_form', compact('Board', 'List', 'Automate', 'id_automate'))->render();
+        return view('automate_form', compact('Board', 'List', 'Automate', 'id_automate', 'Labels', 'Members'))->render();
     }
 
     public function save (Request $request, $id_board, $id_list, $id_automate)

@@ -1,0 +1,52 @@
+/* Trello components */
+.trello-label {
+    display: inline-block;
+    width: 250px;
+    height: 30px;
+    color: #FFF;
+    background-color: #b6bbbf;
+    padding: 3px;
+    border-radius: 3px;
+    margin-left: 5px;
+    float: left;
+}
+
+.trello-label.green {
+    background-color: #61bd4f;
+}
+
+.trello-label.yellow {
+    background-color: #f2d600;
+}
+
+.trello-label.orange {
+    background-color: #ffab4a;
+}
+
+.trello-label.red {
+    background-color: #eb5a46;
+}
+
+.trello-label.purple {
+    background-color: #c377e0;
+}
+
+.trello-label.blue {
+    background-color: #0079bf;
+}
+
+.trello-label.sky {
+    background-color: #00c2e0;
+}
+
+.trello-label.lime {
+    background-color: #51e898;
+}
+
+.trello-label.pink {
+    background-color: #ff80ce;
+}
+
+.trello-label.black {
+    background-color: #4d4d4d;
+}

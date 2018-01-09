@@ -42,6 +42,31 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="description" class="col-md-4 control-label">Members</label>
+
+                                <div class="col-md-6">
+                                    @foreach($Members as $Member)
+                                        <input name="members[]" type="checkbox" id="member-{{ $Member['id'] }}" value="{{ $Member['id'] }}"> <label for="member-{{ $Member['id'] }}">{{ $Member['fullName'] }}</label> <br>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description" class="col-md-4 control-label">Labels</label>
+
+                                <div class="col-md-6">
+                                    <table>
+                                    @foreach($Labels as $Label)
+                                        <tr>
+                                            <td><input name="labels[]" type="checkbox" id="label-{{ $Label['id'] }}" value="{{ $Label['id'] }}"></td>
+                                            <td><label class="trello-label {{ $Label['color'] }}" for="label-{{ $Label['id'] }}">{{ $Label['name'] }}</label></td>
+                                        </tr>
+                                    @endforeach
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         Save
