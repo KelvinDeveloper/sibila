@@ -9,6 +9,11 @@
     border-radius: 3px;
     margin-left: 5px;
     float: left;
+    cursor: pointer;
+}
+
+.trello-label:hover {
+    opacity: .8;
 }
 
 .trello-label.green {

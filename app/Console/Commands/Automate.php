@@ -73,7 +73,7 @@ class Automate extends Command
 
     private function weekly ($Automate)
     {
-        if (Carbon::now()->isWeekday()) {
+        if (Carbon::now()->{"is{$Automate->weekDays[$Automate->week_day]}"}()) {
 
             return $this->cardExists($Automate);
         }
@@ -81,7 +81,7 @@ class Automate extends Command
 
     private function monthly ($Automate)
     {
-        if ((int) Carbon::now()->format('d') == 1) {
+        if ((int) Carbon::now()->format('d') == $Automate->month_day) {
 
             return $this->cardExists($Automate);
         }
@@ -111,7 +111,9 @@ class Automate extends Command
         return $Trello->Card->create([
             'idList'    =>  $Automate->list_id,
             'name'      =>  $Automate->title,
-            'desc'      =>  $Automate->description
+            'desc'      =>  $Automate->description,
+            'idMembers' =>  $Automate->members_id,
+            'idLabels'  =>  $Automate->labels_id,
         ]);
     }
 }

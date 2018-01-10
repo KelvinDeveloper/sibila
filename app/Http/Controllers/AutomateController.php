@@ -63,7 +63,9 @@ class AutomateController extends Controller
            [
                'board_id'   =>  $id_board,
                'list_id'    =>  $id_list,
-               'user_id'    =>  Auth::user()->id
+               'user_id'    =>  Auth::user()->id,
+               'members_id' =>  implode(',', $request->all()['members']),
+               'labels_id'  =>  implode(',', $request->all()['labels'])
            ], $request->all()
         ));
 

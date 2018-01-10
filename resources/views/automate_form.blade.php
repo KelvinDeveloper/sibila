@@ -41,12 +41,37 @@
                                 </div>
                             </div>
 
+                            <div class="form-group week_day" style="display: none">
+                                <label for="week_day" class="col-md-4 control-label">Week day</label>
+
+                                <div class="col-md-6">
+                                    <select id="week_day" type="text" class="form-control" name="week_day">
+                                        @foreach($Automate->weekDays as $key => $value)
+                                            <option value="{{ $key }}"{{ $Automate->week_day == $key ? ' selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group month_day" style="display: none">
+                                <label for="month_day" class="col-md-4 control-label">Month day</label>
+
+                                <div class="col-md-6">
+                                    <select id="month_day" type="text" class="form-control" name="month_day">
+                                        @foreach($Automate->monthDays as $value)
+                                            <option value="{{ $value }}"{{ $Automate->month_day == $value ? ' selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="description" class="col-md-4 control-label">Members</label>
 
                                 <div class="col-md-6">
                                     @foreach($Members as $Member)
-                                        <input name="members[]" type="checkbox" id="member-{{ $Member['id'] }}" value="{{ $Member['id'] }}"> <label for="member-{{ $Member['id'] }}">{{ $Member['fullName'] }}</label> <br>
+                                        <input name="members[]" type="checkbox" id="member-{{ $Member['id'] }}" value="{{ $Member['id'] }}" {{ strstr($Automate->members_id, $Member['id']) ? 'checked' : '' }}>
+                                        <label for="member-{{ $Member['id'] }}">{{ $Member['fullName'] }}</label> <br>
                                     @endforeach
                                 </div>
                             </div>
@@ -58,7 +83,7 @@
                                     <table>
                                     @foreach($Labels as $Label)
                                         <tr>
-                                            <td><input name="labels[]" type="checkbox" id="label-{{ $Label['id'] }}" value="{{ $Label['id'] }}"></td>
+                                            <td><input name="labels[]" type="checkbox" id="label-{{ $Label['id'] }}" value="{{ $Label['id'] }}" {{ strstr($Automate->labels_id, $Label['id']) ? 'checked' : '' }}></td>
                                             <td><label class="trello-label {{ $Label['color'] }}" for="label-{{ $Label['id'] }}">{{ $Label['name'] }}</label></td>
                                         </tr>
                                     @endforeach
@@ -79,4 +104,26 @@
                 </div>
             </div>
         </div>
+
+        <script>
+
+            $(document).ready(function () {
+
+                $('#frenquency').change(function () {
+
+                    $('.week_day, .month_day').hide();
+
+                    if ($(this).val() == 2) {
+                        $('.week_day').show();
+                    }
+
+                    else if ($(this).val() == 3) {
+
+                        $('.month_day').show();
+                    }
+                });
+
+                $('#frenquency').change();
+            });
+        </script>
 @endsection
