@@ -1,17 +1,23 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Task;
 
+use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 
-class DaviTask extends Command
+class Task extends Command
 {
+    use Data;
+
+    private $User;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'tasks';
 
     /**
      * The console command description.
@@ -37,6 +43,12 @@ class DaviTask extends Command
      */
     public function handle()
     {
-        //
+        foreach (User::get() as $User) {
+
+            $this->User = $User;
+            Auth::login($User);
+
+            $this->getCardsDay();
+        }
     }
 }

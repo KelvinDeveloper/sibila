@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\Automate;
 use App\Console\Commands\Boot;
+use App\Console\Commands\Task\Task;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Boot::class,
         Automate::class,
+        Task::class,
     ];
 
     /**
