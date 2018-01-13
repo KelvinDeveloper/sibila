@@ -10,6 +10,6 @@ class Children {
 
     public function boot ($Setting)
     {
-        $Cards = $this->getCardsDay($Setting);
+        $Cards = $this->getDone($Setting);
     }
 }

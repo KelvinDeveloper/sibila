@@ -6,14 +6,15 @@ use App\Trello;
 
 trait Data {
 
-    private function getCardsDay ($Setting)
+    private function getDone ($Setting)
     {
         $Trello = new Trello;
         $Cards  = [];
 
         foreach ($Trello->Board->cards()->all($Setting->board_id) as $Card){
 
-            $Cards[] = $Card;
+            if ($Setting->list_done_id == $Card['idList'])
+                $Cards[] = $Card;
         }
 
         return $Cards;
