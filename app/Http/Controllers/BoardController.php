@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BoardConfiguration;
 use App\Trello;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
@@ -49,6 +50,7 @@ class BoardController extends Controller
 
         $Board->fill($request->all());
         $Board->board_id = $id;
+        $Board->user_id  = Auth::user()->id;
 
         $Board->save();
 

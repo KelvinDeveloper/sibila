@@ -12,7 +12,7 @@ class BoardConfiguration extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'board_id', 'list_doing_id'
+        'board_id', 'list_backlog_id', 'list_sprint_id', 'list_doing_id', 'list_done_id', 'task_id'
     ];
 
     /**
@@ -22,5 +22,9 @@ class BoardConfiguration extends Authenticatable
      */
     protected $hidden = [
 
+    ];
+
+    public $tasks = [
+        1   =>  'Children'
     ];
 }

@@ -6,16 +6,16 @@ use App\Trello;
 
 trait Data {
 
-    private function getCardsDay ()
+    private function getCardsDay ($Setting)
     {
         $Trello = new Trello;
+        $Cards  = [];
 
-//        foreach ($Trello->Board->cards()->all($Automate->board_id) as $Card){
-//
-//            if ( $Card['idList'] == $Automate->list_id && $Card['name'] == $Automate->title ) {
-//
-//                $Exist = true;
-//            }
-//        }
+        foreach ($Trello->Board->cards()->all($Setting->board_id) as $Card){
+
+            $Cards[] = $Card;
+        }
+
+        return $Cards;
     }
 }

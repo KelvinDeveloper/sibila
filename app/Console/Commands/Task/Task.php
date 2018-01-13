@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Task;
 
+use App\BoardConfiguration;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
@@ -43,12 +44,15 @@ class Task extends Command
      */
     public function handle()
     {
-        foreach (User::get() as $User) {
+        foreach (BoardConfiguration::where('task_id', '!=', '')->get() as $Setting) {
 
-            $this->User = $User;
-            Auth::login($User);
+            $this->User = User::find($Setting->user_id);
+            Auth::login($this->User);
 
-            $this->getCardsDay();
+            $Class = "App\\Console\\Commands\\Task\\Tasks\\{$Setting->tasks[$Setting->task_id]}";
+            $Task  = new $Class;
+
+            $Task->boot($Setting, $this->User);
         }
     }
 }

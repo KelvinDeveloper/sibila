@@ -14,9 +14,11 @@ class CreateColumnsBoardSettings extends Migration
     public function up()
     {
         Schema::table('board_configurations', function (Blueprint $table) {
-            $table->string('backlog_id')->after('id')->nullable();
-            $table->string('sprint_id')->after('id')->nullable();
-            $table->string('done_id')->after('doing_id')->nullable();
+            $table->string('list_backlog_id')->after('id')->nullable();
+            $table->string('list_sprint_id')->after('id')->nullable();
+            $table->string('list_done_id')->after('list_doing_id')->nullable();
+            $table->string('task_id')->after('list_doing_id')->nullable();
+            $table->integer('user_id')->after('list_doing_id')->nullable();
 
             $table->string('list_doing_id')->nullable()->change();
         });
