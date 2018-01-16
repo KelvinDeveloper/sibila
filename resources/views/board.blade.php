@@ -65,7 +65,7 @@
                                 <div class="col-md-6">
                                     <option value="">Select</option>
                                     @foreach($Lists as $List)
-                                        <option id="automate-list">{{ $List['name'] }}</option>
+                                        <option id="automate-list" value="{{ $List['id'] }}">{{ $List['name'] }}</option>
                                     @endforeach
                                 </div>
                             </select> <br>

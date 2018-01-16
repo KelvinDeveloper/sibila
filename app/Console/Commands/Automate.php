@@ -73,7 +73,7 @@ class Automate extends Command
 
     private function weekly ($Automate)
     {
-        if (Carbon::now()->{"is{$Automate->weekDays[$Automate->week_day]}"}()) {
+        if ($Automate->week_day == Carbon::now()->format('N')) {
 
             return $this->cardExists($Automate);
         }

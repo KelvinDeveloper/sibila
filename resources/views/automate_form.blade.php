@@ -92,6 +92,22 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="score" class="col-md-4 control-label">Score</label>
+
+                                <div class="col-md-6">
+                                    <input id="score" type="number" class="form-control" name="score" value="{{ $Automate->score }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="penalty" class="col-md-4 control-label">Penalty</label>
+
+                                <div class="col-md-6">
+                                    <input id="penalty" type="number" class="form-control" name="penalty" value="{{ $Automate->penalty }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         Save
