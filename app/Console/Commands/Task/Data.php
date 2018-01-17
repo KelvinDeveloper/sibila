@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 trait Data {
 
+    private $Trello;
+
+    public function __construct()
+    {
+        $this->Trello = $Trello = new Trello;
+    }
+
     private function getCards ($Setting)
     {
-        $Trello = new Trello;
         $Cards  = [];
 
         $Cards['backlog'] = [];
@@ -19,7 +25,7 @@ trait Data {
         $Cards['doing'] = [];
         $Cards['done'] = [];
 
-        foreach ($Trello->Board->cards()->all($Setting->board_id) as $Card){
+        foreach ($this->Trello->Board->cards()->all($Setting->board_id) as $Card) {
 
             switch ($Card['idList']) {
 
@@ -47,20 +53,28 @@ trait Data {
     private function getDailyCards ($Title=false)
     {
 
-        $Obj = BoardAutomate::where('user_id', Auth::user()->id)
-            ->where('frequency', 1)
-            ->orWhere(function ($query) {
-                return $query->where('frequency', 2)->where('week_day', date(Carbon::now()->format('N')));
-            })
-            ->orWhere(function ($query) {
-                return $query->where('frequency', 3)->where('month_day', date(Carbon::now()->format('d')));
-            });
+        $Obj = BoardAutomate::where(function ($query) {
+
+            $query->where('user_id', Auth::user()->id)
+                ->where('frequency', 1)
+                ->orWhere(function ($query) {
+                    return $query->where('frequency', 2)->where('week_day', date(Carbon::now()->format('N')));
+                })
+                ->orWhere(function ($query) {
+                    return $query->where('frequency', 3)->where('month_day', date(Carbon::now()->format('d')));
+                });
+        });
 
         if ($Title) {
 
-            $Obj->where('title', $Title);
+            return $Obj->where('title', $Title)->first();
         }
 
         return $Obj->get();
+    }
+
+    private function closeCard ($id)
+    {
+        $this->Trello->Card->setClosed($id);
     }
 }
