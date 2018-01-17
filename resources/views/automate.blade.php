@@ -18,6 +18,8 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Frenquecy</th>
+                                    <th>Score</th>
+                                    <th>Penalty</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -27,6 +29,8 @@
                                     <tr>
                                         <td>{{ $Automate->title }}</td>
                                         <td>{{ $Automate->getFrequency() }}</td>
+                                        <td>{{ $Automate->score }}</td>
+                                        <td>{{ $Automate->penalty }}</td>
                                         <td data-id="{{ $Automate->id }}">
                                             <a href="#" onclick="deleteItem({{ $Automate->id }})">Delete</a> |
                                             <a href="/board/{{ $Board->getId() }}/automate/{{ $List['id'] }}/{{ $Automate->id }}">Edit</a>
