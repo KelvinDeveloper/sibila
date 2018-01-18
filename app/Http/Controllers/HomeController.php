@@ -12,9 +12,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Trello $Trello)
+    public function index(Trello $Trello, $Api=false)
     {
         $Boards = $Trello->getBoards();
+
+        if($Api) return $Boards;
 
         return view('home', compact('Boards'));
     }
