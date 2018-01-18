@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Report;
 use App\Trello;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
 class ApiController extends Controller
 {
@@ -40,6 +40,27 @@ class ApiController extends Controller
             $request->date = Carbon::now()->format('Y-m');
         }
 
-        return Report::where('board_id', $id)->where('date', $request->date)->get();
+        $Report = [];
+
+        $Obj = Report::where('board_id', $id)->where('date', 'like',  "%{$request->date}%");
+
+        $Report['all'] = $Obj->get();
+        $Report['summary']['score'] = $Obj->select(\DB::raw('SUM(score) AS score'))->first();
+        $Report['dates'] = [];
+
+        if (is_object($Report['summary']['score'])) {
+
+            $Report['summary']['score'] = $Report['summary']['score']->score;
+
+            foreach (Report::where('board_id', $id)->get() as $Item) {
+
+                $Report['dates'][] = substr($Item->date, 0, 7);
+            }
+
+            $Report['dates'] = array_unique($Report['dates']);
+            rsort($Report['dates']);
+        }
+
+        return $Report;
     }
 }

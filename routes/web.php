@@ -46,23 +46,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/setup', 'SetupController@save')->name('setup');
 });
 
-
-
-
 Route::group([
     'prefix' => 'api/v1/',
     'middleware' => 'cors'
 ], function () {
 
     Route::resource('authenticate', 'ApiAuthController', [
-        'except' => [
-            'index',
-            'show',
-            'update',
-            'destroy'
-        ]
+//        'except' => [
+//            'index',
+//            'show',
+//            'update',
+//            'destroy'
+//        ]
     ]);
 
     Route::get('boards/get', 'ApiController@getBoards');
-    Route::get('report/get', 'ApiController@getReport');
+    Route::match(['post', 'get'], 'report/{id}/get', 'ApiController@getReport');
 });
