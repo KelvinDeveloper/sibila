@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BoardConfiguration;
 use App\Report;
 use App\Trello;
 use Carbon\Carbon;
@@ -11,6 +12,8 @@ use JWTAuth;
 
 class ApiController extends Controller
 {
+
+    use \App\Console\Commands\Task\Data;
 
     private $User;
     private $Trello;
@@ -40,13 +43,27 @@ class ApiController extends Controller
             $request->date = Carbon::now()->format('Y-m');
         }
 
+        $Setting = BoardConfiguration::where('task_id', '!=', '')->where('user_id', Auth::user()->id)->first();
+
         $Report = [];
 
         $Obj = Report::where('board_id', $id)->where('date', 'like',  "%{$request->date}%");
 
-        $Report['all'] = $Obj->get();
+        foreach ($Obj->orderBy('date', 'DESC')->get() as $item) {
+
+            $item->score   = empty($item->score) ? '0' : $item->score;
+            $item->penalty = empty($item->penalty) ? '0' : $item->penalty;
+            $item->date    = (new Carbon($item->date))->format('d/m/Y');
+
+            $Report['all'][] = $item;
+        }
+
         $Report['summary']['score'] = $Obj->select(\DB::raw('SUM(score) AS score'))->first();
+
+        $Report['summary']['money'] = 'R$ ' . number_format( ((int) $Report['summary']['score']->score / 10), 2, '.', '.' );
         $Report['dates'] = [];
+
+        $Report['cards'] = $this->getCards($Setting);
 
         if (is_object($Report['summary']['score'])) {
 
@@ -54,13 +71,13 @@ class ApiController extends Controller
 
             foreach (Report::where('board_id', $id)->get() as $Item) {
 
-                $Report['dates'][] = substr($Item->date, 0, 7);
+                $Report['dates'][] = (new Carbon($Item->date))->format('M/Y');
             }
 
             $Report['dates'] = array_unique($Report['dates']);
             rsort($Report['dates']);
         }
 
-        return $Report;
+        return response()->json($Report);
     }
 }

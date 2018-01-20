@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Task\Tasks;
 
+use App\BoardAutomate;
 use App\Console\Commands\Automate;
 use App\Report;
 use Carbon\Carbon;
@@ -34,7 +35,7 @@ class Children {
 
             foreach ($allCards as $Card) {
 
-                $Automate = $this->getDailyCards($Card['name']);
+                $Automate = BoardAutomate::where('name', $Card['name'])->first();
 
                 if (! $Automate) continue;
 
