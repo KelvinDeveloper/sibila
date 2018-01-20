@@ -51,7 +51,7 @@ class ApiController extends Controller
 
         $Report['summary']['score'] = $Obj->select(\DB::raw('SUM(score) AS score'))->first();
 
-        foreach ($Obj->orderBy('date', 'DESC')->get() as $item) {
+        foreach (Report::where('board_id', $id)->where('date', 'like',  "%{$request->date}%")->orderBy('date', 'DESC')->get() as $item) {
 
             $item->score   = empty($item->score) ? '0' : $item->score;
             $item->penalty = empty($item->penalty) ? '0' : $item->penalty;
