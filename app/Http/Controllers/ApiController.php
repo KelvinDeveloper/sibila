@@ -49,6 +49,8 @@ class ApiController extends Controller
 
         $Obj = Report::where('board_id', $id)->where('date', 'like',  "%{$request->date}%");
 
+        $Report['summary']['score'] = $Obj->select(\DB::raw('SUM(score) AS score'))->first();
+
         foreach ($Obj->orderBy('date', 'DESC')->get() as $item) {
 
             $item->score   = empty($item->score) ? '0' : $item->score;
@@ -57,8 +59,6 @@ class ApiController extends Controller
 
             $Report['all'][] = $item;
         }
-
-        $Report['summary']['score'] = $Obj->select(\DB::raw('SUM(score) AS score'))->first();
 
         $Report['summary']['money'] = 'R$ ' . number_format( ((int) $Report['summary']['score']->score / 10), 2, '.', '.' );
         $Report['dates'] = [];
