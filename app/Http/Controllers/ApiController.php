@@ -60,7 +60,7 @@ class ApiController extends Controller
             $Report['all'][] = $item;
         }
 
-        $Report['summary']['money'] = 'R$ ' . number_format( ((int) $Report['summary']['score']->score / 10), 2, '.', '.' );
+        $Report['summary']['money'] = 'R$ ' . number_format( ((int) $Report['summary']['score']->score / 10), 2, ',', '.' );
         $Report['dates'] = [];
 
         $Report['cards'] = $this->getCards($Setting);
