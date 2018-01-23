@@ -35,7 +35,7 @@ class Children {
 
             foreach ($allCards as $Card) {
 
-                $Automate = BoardAutomate::where('name', $Card['name'])->first();
+                $Automate = BoardAutomate::where('title', $Card['name'])->first();
 
                 if (! $Automate) continue;
 
