@@ -29,12 +29,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('tasks')
+            ->dailyAt('6:00');
 
          $schedule->command('boot:start')
-             ->sendOutputTo('/Users/TBLManager/www/cron.log')
-                  ->hourly();
+             ->dailyAt('5:00');
     }
 
     /**
