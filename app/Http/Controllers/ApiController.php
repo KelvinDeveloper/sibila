@@ -38,8 +38,7 @@ class ApiController extends Controller
 
     public function getReport (Request $request, $id)
     {
-        if (! isset($request->date)) {
-
+        if (! isset($request->date) || !$request->date) {
             $request->date = Carbon::now()->format('Y-m');
         }
 
@@ -70,12 +69,11 @@ class ApiController extends Controller
             $Report['summary']['score'] = $Report['summary']['score']->score;
 
             foreach (Report::where('board_id', $id)->get() as $Item) {
-
-                $Report['dates'][] = (new Carbon($Item->date))->format('M/Y');
+                $Date = substr($Item->date, 0, 7);
+                if (! isset($Report['dates'][$Date])) {
+                    $Report['dates'][$Date] = (new Carbon($Date))->format('M/Y');
+                }
             }
-
-            $Report['dates'] = array_unique($Report['dates']);
-            rsort($Report['dates']);
         }
 
         return response()->json($Report);
